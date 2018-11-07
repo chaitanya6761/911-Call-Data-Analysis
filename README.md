@@ -59,19 +59,6 @@ call_data.head(3)
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -132,7 +119,7 @@ call_data.head(3)
 
 ## Basic Exploration
 
-** What are the top 5 zipcodes for 911 calls? **
+**What are the top 5 zipcodes for 911 calls? **
 
 
 ```python
@@ -151,7 +138,7 @@ call_data['zip'].value_counts().head(5)
 
 
 
-** What are the top 5 townships (twp) for 911 calls? **
+**What are the top 5 townships (twp) for 911 calls? **
 
 
 ```python
@@ -170,7 +157,7 @@ call_data['twp'].value_counts()[:5]
 
 
 
-** How many unique title codes are there? **
+**How many unique title codes are there? **
 
 
 ```python
@@ -186,7 +173,7 @@ call_data['title'].nunique()
 
 ## Creating new features
 
-** In the titles column there are "Reasons/Departments" specified before the title code. These are EMS, Fire, and Traffic.Let's use .apply() with a custom lambda expression to create a new column called "Reason" that contains this string value.** 
+**In the titles column there are "Reasons/Departments" specified before the title code. These are EMS, Fire, and Traffic.Let's use .apply() with a custom lambda expression to create a new column called "Reason" that contains this string value.** 
 
 **For example, if the title column value is EMS: BACK PAINS/INJURY , the Reason column value would be EMS. **
 
@@ -195,7 +182,7 @@ call_data['title'].nunique()
 call_data['reason'] = call_data['title'].apply(lambda title:title.split(':')[0])
 ```
 
-** What is the most common Reason for a 911 call based off of this new column? **
+**What is the most common Reason for a 911 call based off of this new column? **
 
 
 ```python
@@ -212,7 +199,7 @@ call_data['reason'].value_counts()
 
 
 
-** Now use seaborn to create a countplot of 911 calls by Reason. **
+**Now use seaborn to create a countplot of 911 calls by Reason. **
 
 
 ```python
@@ -231,7 +218,7 @@ sns.countplot(call_data['reason'], palette='viridis')
 
 
 ___
-** Now let us begin to focus on time information. What is the data type of the objects in the timeStamp column? **
+**Now let us begin to focus on time information. What is the data type of the objects in the timeStamp column? **
 
 
 ```python
@@ -245,14 +232,14 @@ type(call_data['timeStamp'][0])
 
 
 
-** Lets use [pd.to_datetime](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.to_datetime.html) to convert the column from strings to DateTime objects. **
+**Lets use [pd.to_datetime](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.to_datetime.html) to convert the column from strings to DateTime objects. **
 
 
 ```python
 call_data['timeStamp'] = pd.to_datetime(call_data['timeStamp'])
 ```
 
-** Now that the timestamp column are actually DateTime objects, we can use .apply() to create 3 new columns called Hour, Month, and Day of Week.**
+**Now that the timestamp column are actually DateTime objects, we can use .apply() to create 3 new columns called Hour, Month, and Day of Week.**
 
 
 ```python
@@ -261,7 +248,7 @@ call_data['month'] =  call_data['timeStamp'].apply(lambda data : data.month)
 call_data['day of week'] = call_data['timeStamp'].apply(lambda data : data.dayofweek)
 ```
 
-** Now that the Day of Week is an integer 0-6. we can use the .map() with this dictionary to map the actual string names to the day of the week: **
+**Now that the Day of Week is an integer 0-6. we can use the .map() with this dictionary to map the actual string names to the day of the week: **
 
 
 ```python
@@ -269,7 +256,7 @@ dmap = {0:'Mon',1:'Tue',2:'Wed',3:'Thu',4:'Fri',5:'Sat',6:'Sun'}
 call_data['day of week'] = call_data['day of week'].map(dmap)
 ```
 
-** Now let's use seaborn to create a countplot of the Day of Week column with the hue based off of the Reason column. **
+**Now let's use seaborn to create a countplot of the Day of Week column with the hue based off of the Reason column. **
 
 
 ```python
@@ -325,19 +312,6 @@ by_month
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -513,7 +487,7 @@ by_month
 
 
 
-** Now create a simple plot off of the dataframe indicating the count of calls per month. **
+**Now create a simple plot off of the dataframe indicating the count of calls per month. **
 
 
 ```python
@@ -531,7 +505,7 @@ by_month['e'].plot.line(marker='o')
 ![png](output_36_1.png)
 
 
-** Now see if you can use seaborn's lmplot() to create a linear fit on the number of calls per month. Keep in mind you may need to reset the index to a column. **
+**Now see if you can use seaborn's lmplot() to create a linear fit on the number of calls per month. Keep in mind you may need to reset the index to a column. **
 
 
 ```python
@@ -557,7 +531,7 @@ sns.lmplot(data=by_month, x='month', y='e')
 call_data['date'] = call_data['timeStamp'].apply(lambda data:data.date())
 ```
 
-** Now groupby this Date column with the count() aggregate and create a plot of counts of 911 calls.**
+**Now groupby this Date column with the count() aggregate and create a plot of counts of 911 calls.**
 
 
 ```python
@@ -576,7 +550,7 @@ call_data_by_date['e'].plot.line(figsize=(18,5))
 ![png](output_42_1.png)
 
 
-** Now recreate this plot but create 3 separate plots with each plot representing a Reason for the 911 call**
+**Now recreate this plot but create 3 separate plots with each plot representing a Reason for the 911 call**
 
 
 ```python
@@ -630,7 +604,7 @@ call_data_by_date_EMS['e'].plot.line(figsize=(18,5))
 
 
 ____
-** Now let's move on to creating  heatmaps with seaborn and our data. We'll first need to restructure the dataframe so that the columns become the Hours and the Index becomes the Day of the Week. There are lots of ways to do this, but I would recommend trying to combine groupby with an [unstack](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.unstack.html) method. Reference the solutions if you get stuck on this!**
+**Now let's move on to creating  heatmaps with seaborn and our data. We'll first need to restructure the dataframe so that the columns become the Hours and the Index becomes the Day of the Week. There are lots of ways to do this, but I would recommend trying to combine groupby with an [unstack](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.unstack.html) method. Reference the solutions if you get stuck on this!**
 
 
 ```python
@@ -642,19 +616,6 @@ dayhour
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -882,7 +843,7 @@ dayhour
 
 
 
-** Now create a HeatMap using this new DataFrame. **
+**Now create a HeatMap using this new DataFrame. **
 
 
 ```python
@@ -901,7 +862,7 @@ sns.heatmap(dayhour, cmap='viridis')
 ![png](output_50_1.png)
 
 
-** Now create a clustermap using this DataFrame. **
+**Now create a clustermap using this DataFrame. **
 
 
 ```python
@@ -924,7 +885,7 @@ sns.clustermap(dayhour, cmap='coolwarm', standard_scale=1)
 ![png](output_52_2.png)
 
 
-** Now repeat these same plots and operations, for a DataFrame that shows the Month as the column. **
+**Now repeat these same plots and operations, for a DataFrame that shows the Month as the column. **
 
 
 ```python
@@ -936,19 +897,6 @@ monthhour
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
