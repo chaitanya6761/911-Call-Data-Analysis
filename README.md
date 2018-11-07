@@ -138,7 +138,7 @@ call_data['zip'].value_counts().head(5)
 
 
 
-**What are the top 5 townships (twp) for 911 calls? **
+**What are the top 5 townships (twp) for 911 calls?**
 
 
 ```python
@@ -157,7 +157,7 @@ call_data['twp'].value_counts()[:5]
 
 
 
-**How many unique title codes are there? **
+**How many unique title codes are there?**
 
 
 ```python
@@ -175,14 +175,14 @@ call_data['title'].nunique()
 
 **In the titles column there are "Reasons/Departments" specified before the title code. These are EMS, Fire, and Traffic.Let's use .apply() with a custom lambda expression to create a new column called "Reason" that contains this string value.** 
 
-**For example, if the title column value is EMS: BACK PAINS/INJURY , the Reason column value would be EMS. **
+**For example, if the title column value is EMS: BACK PAINS/INJURY , the Reason column value would be EMS.**
 
 
 ```python
 call_data['reason'] = call_data['title'].apply(lambda title:title.split(':')[0])
 ```
 
-**What is the most common Reason for a 911 call based off of this new column? **
+**What is the most common Reason for a 911 call based off of this new column?**
 
 
 ```python
@@ -199,7 +199,7 @@ call_data['reason'].value_counts()
 
 
 
-**Now use seaborn to create a countplot of 911 calls by Reason. **
+**Now use seaborn to create a countplot of 911 calls by Reason.**
 
 
 ```python
@@ -218,7 +218,7 @@ sns.countplot(call_data['reason'], palette='viridis')
 
 
 ___
-**Now let us begin to focus on time information. What is the data type of the objects in the timeStamp column? **
+**Now let us begin to focus on time information. What is the data type of the objects in the timeStamp column?**
 
 
 ```python
@@ -232,7 +232,7 @@ type(call_data['timeStamp'][0])
 
 
 
-**Lets use [pd.to_datetime](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.to_datetime.html) to convert the column from strings to DateTime objects. **
+**Lets use [pd.to_datetime](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.to_datetime.html) to convert the column from strings to DateTime objects.**
 
 
 ```python
@@ -248,7 +248,7 @@ call_data['month'] =  call_data['timeStamp'].apply(lambda data : data.month)
 call_data['day of week'] = call_data['timeStamp'].apply(lambda data : data.dayofweek)
 ```
 
-**Now that the Day of Week is an integer 0-6. we can use the .map() with this dictionary to map the actual string names to the day of the week: **
+**Now that the Day of Week is an integer 0-6. we can use the .map() with this dictionary to map the actual string names to the day of the week:**
 
 
 ```python
@@ -256,7 +256,7 @@ dmap = {0:'Mon',1:'Tue',2:'Wed',3:'Thu',4:'Fri',5:'Sat',6:'Sun'}
 call_data['day of week'] = call_data['day of week'].map(dmap)
 ```
 
-**Now let's use seaborn to create a countplot of the Day of Week column with the hue based off of the Reason column. **
+**Now let's use seaborn to create a countplot of the Day of Week column with the hue based off of the Reason column.**
 
 
 ```python
@@ -298,9 +298,9 @@ plt.legend(loc=0, bbox_to_anchor=(1.3, 1))
 
 _____
 
-** You should have noticed it was missing some Months, let's see if we can maybe fill in this information by plotting the information in another way, possibly a simple line plot that fills in the missing months, in order to do this, we'll need to do some work with pandas... **
+**You should have noticed it was missing some Months, let's see if we can maybe fill in this information by plotting the information in another way, possibly a simple line plot that fills in the missing months, in order to do this, we'll need to do some work with pandas...**
 
-** Now create a gropuby object called byMonth, where you group the DataFrame by the month column and use the count() method for aggregation. Use the head() method on this returned DataFrame. **
+**Now create a gropuby object called byMonth, where you group the DataFrame by the month column and use the count() method for aggregation. Use the head() method on this returned DataFrame.**
 
 
 ```python
@@ -487,7 +487,7 @@ by_month
 
 
 
-**Now create a simple plot off of the dataframe indicating the count of calls per month. **
+**Now create a simple plot off of the dataframe indicating the count of calls per month.**
 
 
 ```python
@@ -505,7 +505,7 @@ by_month['e'].plot.line(marker='o')
 ![png](output_36_1.png)
 
 
-**Now see if you can use seaborn's lmplot() to create a linear fit on the number of calls per month. Keep in mind you may need to reset the index to a column. **
+**Now see if you can use seaborn's lmplot() to create a linear fit on the number of calls per month. Keep in mind you may need to reset the index to a column.**
 
 
 ```python
@@ -524,7 +524,7 @@ sns.lmplot(data=by_month, x='month', y='e')
 ![png](output_38_1.png)
 
 
-**Create a new column called 'Date' that contains the date from the timeStamp column. You'll need to use apply along with the .date() method. ** 
+**Create a new column called 'Date' that contains the date from the timeStamp column. You'll need to use apply along with the .date() method.** 
 
 
 ```python
@@ -843,7 +843,7 @@ dayhour
 
 
 
-**Now create a HeatMap using this new DataFrame. **
+**Now create a HeatMap using this new DataFrame.**
 
 
 ```python
@@ -862,7 +862,7 @@ sns.heatmap(dayhour, cmap='viridis')
 ![png](output_50_1.png)
 
 
-**Now create a clustermap using this DataFrame. **
+**Now create a clustermap using this DataFrame.**
 
 
 ```python
@@ -885,7 +885,7 @@ sns.clustermap(dayhour, cmap='coolwarm', standard_scale=1)
 ![png](output_52_2.png)
 
 
-**Now repeat these same plots and operations, for a DataFrame that shows the Month as the column. **
+**Now repeat these same plots and operations, for a DataFrame that shows the Month as the column.**
 
 
 ```python
