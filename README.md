@@ -222,7 +222,7 @@ sns.countplot(call_data['reason'], palette='viridis')
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0xed80c72ac8>
+    <matplotlib.axes._subplots.AxesSubplot at 0xed8086d940>
 
 
 
@@ -241,7 +241,7 @@ type(call_data['timeStamp'][0])
 
 
 
-    str
+    pandas._libs.tslibs.timestamps.Timestamp
 
 
 
@@ -274,13 +274,13 @@ call_data['day of week'] = call_data['day of week'].map(dmap)
 
 ```python
 sns.countplot(data=call_data, x='day of week', hue='reason', palette='viridis')
-plt.legend(loc=0, bbox_to_anchor=(1.3, 1))
+plt.legend(loc=0, bbox_to_anchor=(1.05,1))
 ```
 
 
 
 
-    <matplotlib.legend.Legend at 0xedfae749e8>
+    <matplotlib.legend.Legend at 0xed8dc5f9e8>
 
 
 
@@ -299,7 +299,7 @@ plt.legend(loc=0, bbox_to_anchor=(1.3, 1))
 
 
 
-    <matplotlib.legend.Legend at 0xed8155ce10>
+    <matplotlib.legend.Legend at 0xed88325518>
 
 
 
@@ -523,7 +523,7 @@ by_month['e'].plot.line(marker='o')
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0xed815817b8>
+    <matplotlib.axes._subplots.AxesSubplot at 0xed883426a0>
 
 
 
@@ -542,7 +542,7 @@ sns.lmplot(data=by_month, x='month', y='e')
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0xed81218f28>
+    <seaborn.axisgrid.FacetGrid at 0xed87f93c18>
 
 
 
@@ -562,13 +562,13 @@ call_data['date'] = call_data['timeStamp'].apply(lambda data:data.date())
 
 ```python
 call_data_by_date = call_data.groupby('date').count()
-call_data_by_date['e'].plot.line(figsize=(7,4))
+call_data_by_date['e'].plot.line(figsize=(18,5))
 ```
 
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0xed81218f98>
+    <matplotlib.axes._subplots.AxesSubplot at 0xed8805e2e8>
 
 
 
@@ -581,13 +581,13 @@ call_data_by_date['e'].plot.line(figsize=(7,4))
 
 ```python
 call_data_by_date_Traffic = call_data[call_data['reason'] == 'Traffic'].groupby('date').count()
-call_data_by_date_Traffic['e'].plot.line(figsize=(7,4))
+call_data_by_date_Traffic['e'].plot.line(figsize=(18,5))
 ```
 
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0xed8123c8d0>
+    <matplotlib.axes._subplots.AxesSubplot at 0xed900c20f0>
 
 
 
@@ -598,13 +598,13 @@ call_data_by_date_Traffic['e'].plot.line(figsize=(7,4))
 
 ```python
 call_data_by_date_Fire = call_data[call_data['reason'] == 'Fire'].groupby('date').count()
-call_data_by_date_Fire['e'].plot.line(figsize=(7,4))
+call_data_by_date_Fire['e'].plot.line(figsize=(18,5))
 ```
 
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0xed81324f98>
+    <matplotlib.axes._subplots.AxesSubplot at 0xed8ff6b908>
 
 
 
@@ -615,13 +615,13 @@ call_data_by_date_Fire['e'].plot.line(figsize=(7,4))
 
 ```python
 call_data_by_date_EMS = call_data[call_data['reason'] == 'EMS'].groupby('date').count()
-call_data_by_date_EMS['e'].plot.line(figsize=(7,4))
+call_data_by_date_EMS['e'].plot.line(figsize=(18,5))
 ```
 
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0xed813ac6d8>
+    <matplotlib.axes._subplots.AxesSubplot at 0xed90073f60>
 
 
 
@@ -635,7 +635,252 @@ ____
 
 ```python
 dayhour = call_data.groupby(['day of week', 'hour']).count()['e'].unstack()
+dayhour
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>hour</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>14</th>
+      <th>15</th>
+      <th>16</th>
+      <th>17</th>
+      <th>18</th>
+      <th>19</th>
+      <th>20</th>
+      <th>21</th>
+      <th>22</th>
+      <th>23</th>
+    </tr>
+    <tr>
+      <th>day of week</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Fri</th>
+      <td>275</td>
+      <td>235</td>
+      <td>191</td>
+      <td>175</td>
+      <td>201</td>
+      <td>194</td>
+      <td>372</td>
+      <td>598</td>
+      <td>742</td>
+      <td>752</td>
+      <td>...</td>
+      <td>932</td>
+      <td>980</td>
+      <td>1039</td>
+      <td>980</td>
+      <td>820</td>
+      <td>696</td>
+      <td>667</td>
+      <td>559</td>
+      <td>514</td>
+      <td>474</td>
+    </tr>
+    <tr>
+      <th>Mon</th>
+      <td>282</td>
+      <td>221</td>
+      <td>201</td>
+      <td>194</td>
+      <td>204</td>
+      <td>267</td>
+      <td>397</td>
+      <td>653</td>
+      <td>819</td>
+      <td>786</td>
+      <td>...</td>
+      <td>869</td>
+      <td>913</td>
+      <td>989</td>
+      <td>997</td>
+      <td>885</td>
+      <td>746</td>
+      <td>613</td>
+      <td>497</td>
+      <td>472</td>
+      <td>325</td>
+    </tr>
+    <tr>
+      <th>Sat</th>
+      <td>375</td>
+      <td>301</td>
+      <td>263</td>
+      <td>260</td>
+      <td>224</td>
+      <td>231</td>
+      <td>257</td>
+      <td>391</td>
+      <td>459</td>
+      <td>640</td>
+      <td>...</td>
+      <td>789</td>
+      <td>796</td>
+      <td>848</td>
+      <td>757</td>
+      <td>778</td>
+      <td>696</td>
+      <td>628</td>
+      <td>572</td>
+      <td>506</td>
+      <td>467</td>
+    </tr>
+    <tr>
+      <th>Sun</th>
+      <td>383</td>
+      <td>306</td>
+      <td>286</td>
+      <td>268</td>
+      <td>242</td>
+      <td>240</td>
+      <td>300</td>
+      <td>402</td>
+      <td>483</td>
+      <td>620</td>
+      <td>...</td>
+      <td>684</td>
+      <td>691</td>
+      <td>663</td>
+      <td>714</td>
+      <td>670</td>
+      <td>655</td>
+      <td>537</td>
+      <td>461</td>
+      <td>415</td>
+      <td>330</td>
+    </tr>
+    <tr>
+      <th>Thu</th>
+      <td>278</td>
+      <td>202</td>
+      <td>233</td>
+      <td>159</td>
+      <td>182</td>
+      <td>203</td>
+      <td>362</td>
+      <td>570</td>
+      <td>777</td>
+      <td>828</td>
+      <td>...</td>
+      <td>876</td>
+      <td>969</td>
+      <td>935</td>
+      <td>1013</td>
+      <td>810</td>
+      <td>698</td>
+      <td>617</td>
+      <td>553</td>
+      <td>424</td>
+      <td>354</td>
+    </tr>
+    <tr>
+      <th>Tue</th>
+      <td>269</td>
+      <td>240</td>
+      <td>186</td>
+      <td>170</td>
+      <td>209</td>
+      <td>239</td>
+      <td>415</td>
+      <td>655</td>
+      <td>889</td>
+      <td>880</td>
+      <td>...</td>
+      <td>943</td>
+      <td>938</td>
+      <td>1026</td>
+      <td>1019</td>
+      <td>905</td>
+      <td>731</td>
+      <td>647</td>
+      <td>571</td>
+      <td>462</td>
+      <td>274</td>
+    </tr>
+    <tr>
+      <th>Wed</th>
+      <td>250</td>
+      <td>216</td>
+      <td>189</td>
+      <td>209</td>
+      <td>156</td>
+      <td>255</td>
+      <td>410</td>
+      <td>701</td>
+      <td>875</td>
+      <td>808</td>
+      <td>...</td>
+      <td>904</td>
+      <td>867</td>
+      <td>990</td>
+      <td>1037</td>
+      <td>894</td>
+      <td>686</td>
+      <td>668</td>
+      <td>575</td>
+      <td>490</td>
+      <td>335</td>
+    </tr>
+  </tbody>
+</table>
+<p>7 rows × 24 columns</p>
+</div>
+
+
 
 ** Now create a HeatMap using this new DataFrame. **
 
@@ -648,7 +893,7 @@ sns.heatmap(dayhour, cmap='viridis')
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0xed813ac208>
+    <matplotlib.axes._subplots.AxesSubplot at 0xed8de3ed30>
 
 
 
@@ -660,19 +905,19 @@ sns.heatmap(dayhour, cmap='viridis')
 
 
 ```python
-plt.figure(figsize=(12,6))
-sns.clustermap(dayhour, cmap='viridis')
+plt.figure(figsize=(14,8))
+sns.clustermap(dayhour, cmap='coolwarm', standard_scale=1)
 ```
 
 
 
 
-    <seaborn.matrix.ClusterGrid at 0xed8285ab70>
+    <seaborn.matrix.ClusterGrid at 0xed8de3eef0>
 
 
 
 
-    <Figure size 864x432 with 0 Axes>
+    <Figure size 1008x576 with 0 Axes>
 
 
 
@@ -683,13 +928,27 @@ sns.clustermap(dayhour, cmap='viridis')
 
 
 ```python
-call_data.pivot_table(index = 'day of week', columns='month', values='e')
+monthhour = call_data.groupby(['day of week', 'month']).count()['e'].unstack()
+monthhour
 ```
 
 
 
 
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -720,87 +979,87 @@ call_data.pivot_table(index = 'day of week', columns='month', values='e')
   <tbody>
     <tr>
       <th>Fri</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
+      <td>1970</td>
+      <td>1581</td>
+      <td>1525</td>
+      <td>1958</td>
+      <td>1730</td>
+      <td>1649</td>
+      <td>2045</td>
+      <td>1310</td>
+      <td>1065</td>
     </tr>
     <tr>
       <th>Mon</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
+      <td>1727</td>
+      <td>1964</td>
+      <td>1535</td>
+      <td>1598</td>
+      <td>1779</td>
+      <td>1617</td>
+      <td>1692</td>
+      <td>1511</td>
+      <td>1257</td>
     </tr>
     <tr>
       <th>Sat</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
+      <td>2291</td>
+      <td>1441</td>
+      <td>1266</td>
+      <td>1734</td>
+      <td>1444</td>
+      <td>1388</td>
+      <td>1695</td>
+      <td>1099</td>
+      <td>978</td>
     </tr>
     <tr>
       <th>Sun</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
+      <td>1960</td>
+      <td>1229</td>
+      <td>1102</td>
+      <td>1488</td>
+      <td>1424</td>
+      <td>1333</td>
+      <td>1672</td>
+      <td>1021</td>
+      <td>907</td>
     </tr>
     <tr>
       <th>Thu</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
+      <td>1584</td>
+      <td>1596</td>
+      <td>1900</td>
+      <td>1601</td>
+      <td>1590</td>
+      <td>2065</td>
+      <td>1646</td>
+      <td>1230</td>
+      <td>1266</td>
     </tr>
     <tr>
       <th>Tue</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
+      <td>1973</td>
+      <td>1753</td>
+      <td>1884</td>
+      <td>1430</td>
+      <td>1918</td>
+      <td>1676</td>
+      <td>1670</td>
+      <td>1612</td>
+      <td>1234</td>
     </tr>
     <tr>
       <th>Wed</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
+      <td>1700</td>
+      <td>1903</td>
+      <td>1889</td>
+      <td>1517</td>
+      <td>1538</td>
+      <td>2058</td>
+      <td>1717</td>
+      <td>1295</td>
+      <td>1262</td>
     </tr>
   </tbody>
 </table>
@@ -810,13 +1069,14 @@ call_data.pivot_table(index = 'day of week', columns='month', values='e')
 
 
 ```python
-
+plt.figure(figsize=(12,6))
+sns.heatmap(monthhour, cmap='viridis')
 ```
 
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x1304fbd30>
+    <matplotlib.axes._subplots.AxesSubplot at 0xed88260320>
 
 
 
@@ -826,16 +1086,21 @@ call_data.pivot_table(index = 'day of week', columns='month', values='e')
 
 
 ```python
-
+plt.figure(figsize=(14,8))
+sns.clustermap(monthhour, cmap='coolwarm', standard_scale=1)
 ```
 
 
 
 
-    <seaborn.matrix.ClusterGrid at 0x12a1a61d0>
+    <seaborn.matrix.ClusterGrid at 0xed8ff6b6d8>
 
 
 
 
-![png](output_56_1.png)
+    <Figure size 1008x576 with 0 Axes>
+
+
+
+![png](output_56_2.png)
 
