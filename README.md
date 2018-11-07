@@ -119,7 +119,7 @@ call_data.head(3)
 
 ## Basic Exploration
 
-**What are the top 5 zipcodes for 911 calls? **
+**What are the top 5 zipcodes for 911 calls?**
 
 
 ```python
