@@ -1,7 +1,7 @@
 
 # 911 Calls Data Exploration
 
-In this project we will be analyzing some 911 call data from [Kaggle](https://www.kaggle.com/mchirico/montcoalert). The data contains the following fields:
+This project focuses on analyzing some 911 call data from Kaggle [Kaggle](https://www.kaggle.com/mchirico/montcoalert). The data contains the following fields:
 
 * lat : String variable, Latitude
 * lng: String variable, Longitude
